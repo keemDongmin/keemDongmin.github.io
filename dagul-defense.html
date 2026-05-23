@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dagul Defense — Sound Design Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --gold:#C9A84C;--gold-dim:#7A6030;--bg:#0A0A0B;--bg2:#111114;--bg3:#18181D;
+  --border:rgba(201,168,76,0.2);--text:#E8E4DA;--text-dim:#A8A49E;
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-weight:300;overflow-x:hidden;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2.5rem;background:rgba(10,10,11,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.15em;color:var(--gold);text-decoration:none;}
+.nav-back{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;display:flex;align-items:center;gap:0.5rem;transition:color 0.2s;}
+.nav-back:hover{color:var(--gold);}
+
+.hero{position:relative;height:500px;overflow:hidden;display:flex;align-items:flex-end;padding-top:60px;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,var(--bg) 100%),linear-gradient(135deg,#0A0D1A 0%,#1A1000 50%,#0A0A0B 100%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);background-size:40px 40px;}
+.hero-content{position:relative;padding:0 3.5rem 3.5rem;width:100%;}
+.hero-label{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.8rem;}
+.hero-label::before{content:'';width:28px;height:1px;background:var(--gold);}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,8rem);line-height:0.9;letter-spacing:0.02em;color:var(--text);}
+.hero-title span{color:var(--gold);}
+.hero-sub{margin-top:1rem;font-size:0.8rem;color:var(--text-dim);letter-spacing:0.2em;text-transform:uppercase;}
+.hero-line{margin-top:1.5rem;width:60px;height:2px;background:var(--gold);}
+
+.meta-bar{border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;background:var(--bg2);}
+.meta-item{flex:1;padding:1.2rem 2rem;border-right:1px solid var(--border);}
+.meta-item:last-child{border-right:none;}
+.meta-label{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:0.4rem;}
+.meta-value{font-size:0.82rem;color:var(--text);font-weight:400;}
+
+.links-bar{padding:1.2rem 3.5rem;display:flex;align-items:center;gap:0.8rem;background:var(--bg);border-bottom:1px solid var(--border);}
+.links-label{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin-right:0.5rem;}
+.link-btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.2rem;border:1px solid var(--border);background:transparent;color:var(--text);font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-decoration:none;transition:all 0.2s;}
+.link-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.05);}
+
+.section{padding:4rem 3.5rem;border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto;}
+.section-full{padding:4rem 3.5rem;border-bottom:1px solid var(--border);}
+.sec-header{display:flex;align-items:baseline;gap:1.2rem;margin-bottom:2.5rem;}
+.sec-num{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--gold);opacity:0.4;}
+.sec-title{font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--text);font-weight:500;}
+
+/* INTRO */
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;}
+.intro-text{font-size:0.92rem;line-height:2;color:var(--text-dim);}
+.intro-text strong{color:var(--text);font-weight:500;}
+.work-tags{display:flex;flex-direction:column;gap:0.5rem;}
+.work-tag{display:flex;align-items:center;gap:1rem;padding:0.9rem 1.2rem;border:1px solid var(--border);background:var(--bg2);}
+.work-tag-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.work-tag-name{font-size:0.82rem;color:var(--text);flex:1;}
+.work-tag-tool{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-dim);}
+
+/* CONCEPT */
+.concept-highlight{background:var(--bg2);border:1px solid var(--border);padding:2rem;margin-bottom:2.5rem;}
+.concept-highlight-label{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:1rem;}
+.concept-highlight-text{font-size:0.92rem;line-height:1.9;color:var(--text);}
+.concept-highlight-text em{color:var(--gold);font-style:normal;}
+
+.char-concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
+.char-concept-card{background:var(--bg2);padding:2rem;}
+.char-concept-name{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.06em;color:var(--gold);margin-bottom:0.3rem;}
+.char-concept-type{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:1rem;}
+.char-concept-desc{font-size:0.82rem;line-height:1.8;color:var(--text-dim);}
+
+.level-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:2.5rem;}
+.level-step{background:var(--bg2);padding:1.5rem;}
+.level-num{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--gold);opacity:0.25;line-height:1;margin-bottom:0.5rem;}
+.level-label{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;}
+.level-desc{font-size:0.78rem;line-height:1.8;color:var(--text-dim);}
+
+/* AUDIO */
+.char-sample-group{margin-bottom:2.5rem;}
+.char-sample-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.06em;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.8rem;}
+.char-badge{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;border:1px solid var(--gold-dim);padding:0.2rem 0.6rem;}
+.char-image-wrap{margin-bottom:1rem;display:inline-flex;flex-direction:column;align-items:flex-start;gap:0.3rem;}
+.char-image{width:100px;height:auto;border:1px solid var(--border);}
+.char-image-label{font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--text-dim);letter-spacing:0.08em;}
+.sample-pair{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.sample-card{background:var(--bg2);border:1px solid var(--border);padding:1.2rem 1.5rem;transition:border-color 0.2s;}
+.sample-card:hover{border-color:rgba(201,168,76,0.3);}
+.sample-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.8rem;}
+.sample-name{font-size:0.85rem;font-weight:500;}
+.sample-lv{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;color:var(--gold);padding:0.2rem 0.5rem;border:1px solid var(--gold-dim);}
+.sample-lv.lv4{color:var(--text-dim);border-color:rgba(255,255,255,0.15);}
+.sample-desc{font-size:0.75rem;color:var(--text-dim);margin-bottom:1rem;}
+
+.audio-player{display:flex;align-items:center;gap:0.8rem;}
+.play-btn{width:34px;height:34px;flex-shrink:0;border-radius:50%;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.2s,border-color 0.2s;}
+.play-btn:hover{background:rgba(201,168,76,0.1);border-color:var(--gold-dim);}
+.play-btn.playing{background:rgba(201,168,76,0.15);border-color:var(--gold);}
+.play-icon{width:0;height:0;border-style:solid;border-width:5px 0 5px 9px;border-color:transparent transparent transparent var(--gold);margin-left:2px;}
+.pause-icon{display:none;align-items:center;gap:2px;}
+.pause-bar{width:2.5px;height:10px;background:var(--gold);border-radius:1px;}
+.play-btn.playing .play-icon{display:none;}
+.play-btn.playing .pause-icon{display:flex;}
+.player-track{flex:1;}
+.track-bar{width:100%;height:3px;background:var(--bg3);border-radius:2px;position:relative;cursor:pointer;overflow:hidden;}
+.track-fill{height:100%;width:0%;background:var(--gold);border-radius:2px;transition:width 0.1s linear;}
+.player-time{font-family:'DM Mono',monospace;font-size:0.58rem;color:var(--text-dim);margin-top:0.4rem;letter-spacing:0.05em;}
+
+/* BGM */
+.bgm-list{display:flex;flex-direction:column;gap:0.8rem;}
+.bgm-card{background:var(--bg2);border:1px solid var(--border);padding:1.5rem 2rem;display:flex;align-items:center;gap:2rem;transition:border-color 0.2s;}
+.bgm-card:hover{border-color:rgba(201,168,76,0.25);}
+.bgm-info{flex:1;min-width:0;}
+.bgm-context{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:0.3rem;}
+.bgm-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.05em;margin-bottom:0.2rem;}
+.bgm-desc{font-size:0.75rem;color:var(--text-dim);}
+.bgm-card .audio-player{flex-shrink:0;width:220px;}
+
+/* SUMMARY */
+.summary-inner{background:var(--bg2);border:1px solid var(--border);padding:3rem;display:grid;grid-template-columns:1fr auto;gap:4rem;align-items:end;}
+.summary-text{font-size:0.92rem;line-height:2;color:var(--text-dim);}
+.summary-text strong{color:var(--text);font-weight:500;}
+.summary-sign{text-align:right;}
+.summary-sign-label{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-dim);display:block;margin-bottom:0.5rem;}
+.summary-sign-name{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold);letter-spacing:0.15em;}
+
+footer{padding:2rem 3.5rem;display:flex;justify-content:space-between;align-items:center;background:var(--bg2);border-top:1px solid var(--border);font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;color:var(--text-dim);}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}
+  .hero-content{padding:0 1.5rem 2.5rem;}
+  .meta-bar{flex-direction:column;}
+  .meta-item{border-right:none;border-bottom:1px solid var(--border);}
+  .links-bar{padding:1rem 1.5rem;flex-wrap:wrap;}
+  .section,.section-full{padding:3rem 1.5rem;}
+  .intro-grid{grid-template-columns:1fr;gap:2rem;}
+  .char-concept-grid{grid-template-columns:1fr;}
+  .level-flow{grid-template-columns:1fr 1fr;}
+  .sample-pair{grid-template-columns:1fr;}
+  .bgm-card{flex-direction:column;align-items:flex-start;}
+  .bgm-card .audio-player{width:100%;}
+  .summary-inner{grid-template-columns:1fr;gap:2rem;}
+  footer{flex-direction:column;gap:0.5rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">← 메인으로</a>
+  <a href="#" class="nav-logo">DAGUL DEFENSE</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-label">Sound Design Portfolio</div>
+    <div class="hero-title">DAGUL<br><span>DEFENSE</span></div>
+    <div class="hero-sub">Mobile Defense Game · Sound Design</div>
+    <div class="hero-line"></div>
+  </div>
+</div>
+
+<!-- META -->
+<div class="meta-bar">
+  <div class="meta-item"><div class="meta-label">장르</div><div class="meta-value">캐주얼 디펜스 / Mobile</div></div>
+  <div class="meta-item"><div class="meta-label">작업 기간</div><div class="meta-value">2026.03 — 2026.04</div></div>
+  <div class="meta-item"><div class="meta-label">담당 작업</div><div class="meta-value">UI SFX · 전투 SFX · 몬스터 SFX · BGM</div></div>
+  <div class="meta-item"><div class="meta-label">사용 툴</div><div class="meta-value">Reaper · FabFilter · Suno AI</div></div>
+</div>
+
+<!-- LINKS -->
+<div class="links-bar">
+  <span class="links-label">Link</span>
+  <a href="https://play.google.com/store/apps/details?id=com.oftgames.DagulDefense" target="_blank" class="link-btn">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17l17.5 8.5L3 20.5z"/></svg>
+    Google Play
+  </a>
+  <a href="https://apps.apple.com/app/dagul-defense" target="_blank" class="link-btn">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    App Store
+  </a>
+</div>
+
+<!-- 01 PROJECT INTRO -->
+<div class="section-full">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="sec-header"><span class="sec-num">01</span><span class="sec-title">Project Intro</span></div>
+    <div class="intro-grid">
+      <div class="intro-text">
+        <p>카드를 소환해 전장을 지배하는 <strong>캐주얼 디펜스 게임</strong>의 사운드 디자인 프로젝트입니다.</p>
+        <br>
+        <p><strong>빠른 전투 템포와 직관적인 타격감</strong>이 핵심인 장르 특성에 맞게, 모든 사운드를 설계했습니다. 캐릭터 3종의 시각적 아이덴티티를 분석하여 각기 다른 사운드 방향을 설정하고, 레벨업에 따라 타격음이 진화하는 시스템을 구축했습니다.</p>
+        <br>
+        <p>UI SFX부터 전투 타격음, 몬스터 피격/사망음, BGM까지 <strong>모든 오디오 요소를 단독으로 제작</strong>했습니다.</p>
+      </div>
+      <div class="work-tags">
+        <div class="work-tag"><div class="work-tag-dot"></div><span class="work-tag-name">UI SFX — 클릭·확인·취소</span><span class="work-tag-tool">Reaper</span></div>
+        <div class="work-tag"><div class="work-tag-dot"></div><span class="work-tag-name">전투 타격음 · 스킬 사운드</span><span class="work-tag-tool">Reaper</span></div>
+        <div class="work-tag"><div class="work-tag-dot"></div><span class="work-tag-name">몬스터 피격 · 사망음</span><span class="work-tag-tool">Reaper</span></div>
+        <div class="work-tag"><div class="work-tag-dot"></div><span class="work-tag-name">인게임 BGM (Lobby · Battle · Boss)</span><span class="work-tag-tool">Suno AI</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 CONCEPT -->
+<div class="section-full" style="background:var(--bg2);">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="sec-header"><span class="sec-num">02</span><span class="sec-title">Concept</span></div>
+
+    <div class="concept-highlight">
+      <div class="concept-highlight-label">기획 의도</div>
+      <div class="concept-highlight-text">
+        디펜스 장르에서 가장 중요한 것은 <em>타격 쾌감</em>입니다.<br>
+        적을 쓰러뜨리는 순간의 임팩트, 레벨업할수록 강해지는 느낌 — 이 두 가지를 사운드로 설계하는 것이 핵심이었습니다.<br>
+        각 캐릭터의 <em>비주얼 아이덴티티</em>에서 사운드 방향을 추출하고, 무기 변화에 따라 재질과 무게감이 달라지는 진화 시스템을 구축했습니다.
+      </div>
+    </div>
+
+    <div class="char-concept-grid">
+      <div class="char-concept-card">
+        <div class="char-concept-name">Wolf</div>
+        <div class="char-concept-type">Tanker · Greatsword</div>
+        <div class="char-concept-desc">늑대 컨셉에서 추출한 맹수의 야생적이고 거친 타격감. 날카롭고 빠른 슬래시 사운드로 공격성을 표현. 레벨업할수록 금속 질감이 더해지며 무게감 증가.</div>
+      </div>
+      <div class="char-concept-card">
+        <div class="char-concept-name">Zeric</div>
+        <div class="char-concept-type">Tanker · Hammer</div>
+        <div class="char-concept-desc">기사 컨셉의 묵직하고 중후한 타격감. 망치의 둔탁한 충격음을 중심으로 설계. Wolf와 대비되는 느리고 강한 임팩트로 캐릭터 개성 차별화.</div>
+      </div>
+      <div class="char-concept-card">
+        <div class="char-concept-name">Terraclass</div>
+        <div class="char-concept-type">Tanker · Shield</div>
+        <div class="char-concept-desc">사자 컨셉의 위압적이고 강인한 사운드. Wolf와 유사한 맹수 계열이지만 방패 기반으로 더 묵직하고 견고한 금속 충돌음으로 표현.</div>
+      </div>
+    </div>
+
+    <div class="level-flow">
+      <div class="level-step">
+        <div class="level-num">01</div>
+        <div class="level-label">Lv.1 — 기본</div>
+        <div class="level-desc">나무·초기 무기 기반. 가볍고 단순한 타격음. 캐릭터의 기본 성격만 담긴 원형 사운드.</div>
+      </div>
+      <div class="level-step">
+        <div class="level-num">02</div>
+        <div class="level-label">Lv.2 — 성장</div>
+        <div class="level-desc">금속 레이어 추가. 무게감이 생기기 시작. 플레이어가 성장을 귀로 느낄 수 있는 구간.</div>
+      </div>
+      <div class="level-step">
+        <div class="level-num">03</div>
+        <div class="level-label">Lv.3 — 강화</div>
+        <div class="level-desc">저음 레이어 두꺼워짐. 타격 시 울림이 길어지며 위압감 증가. 전장 지배력이 느껴지는 사운드.</div>
+      </div>
+      <div class="level-step">
+        <div class="level-num">04</div>
+        <div class="level-label">Lv.4 — 풀강</div>
+        <div class="level-desc">마법·에너지 레이어 추가. 물리력과 마법의 융합. 최고조의 타격 쾌감과 임팩트.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 SOUND SAMPLES -->
+<div class="section-full">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="sec-header"><span class="sec-num">03</span><span class="sec-title">Sound Samples</span></div>
+    <p style="font-size:0.88rem;color:var(--text-dim);margin-bottom:2.5rem;line-height:1.9;">캐릭터 3종의 Lv.1 → Lv.4 사운드 진화를 직접 들어보세요.<br>레벨업할수록 저음 레이어가 두꺼워지고, 금속 질감과 마법 요소가 더해집니다.</p>
+
+    <div class="char-sample-group">
+      <div class="char-sample-title">Wolf <span class="char-badge">Tanker · Greatsword</span></div>
+      <div class="char-image-wrap">
+        <img src="wolf.png" alt="Wolf" class="char-image">
+        <div class="char-image-label">Wolf — 인게임 스프라이트</div>
+      </div>
+      <div class="sample-pair">
+        <div class="sample-card">
+          <div class="sample-header"><span class="sample-name">Wolf 공격음</span><span class="sample-lv">Lv. 1</span></div>
+          <p class="sample-desc">나무 무기 기반. 가볍고 날카로운 슬래시.</p>
+          <div class="audio-player" data-src="SE_Tanker_Wolf_1_Revel_ATT_1.mp3">
+            <div class="play-btn"><div class="play-icon"></div><div class="pause-icon"><div class="pause-bar"></div><div class="pause-bar"></div></div></div>
+            <div class="player-track"><div class="track-bar"><div class="track-fill"></div></div><div class="player-time">0:00 / 0:00</div></div>
+          </div>
+        </div>
+        <div class="sample-card">
+          <div class="sample-header"><span class="sample-name">Wolf 공격음</span><span class="sample-lv lv4">Lv. 4</span></div>
+          <p class="sample-desc">풀 업그레이드. 묵직한 금속 슬래시 + 마법 레이어.</p>
+          <div class="audio-player" data-src="SE_Tanker_Wolf_4_Revel_ATT_1.mp3">
+            <div class="play-btn"><div class="play-icon"></div><div class="pause-icon"><div class="pause-bar"></div><div class="pause-bar"></div></div></div>
+            <div class="player-track"><div class="track-bar"><div class="track-fill"></div></div><div class="player-time">0:00 / 0:00</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="char-sample-group">
+      <div class="char-sample-title">Zeric <span class="char-badge">Tanker · Hammer</span></div>
+      <div class="char-image-wrap">
+        <img src="zeric.png" alt="Zeric" class="char-image">
+        <div class="char-image-label">Zeric — 인게임 스프라이트</div>
+      </div>
+      <div class="sample-pair">
+        <div class="sample-card">
+          <div class="sample-header"><span class="sample-name">Zeric 공격음</span><span class="sample-lv">Lv. 1</span></div>
+          <p class="sample-desc">초기 망치. 둔탁한 충격감 중심.</p>
+          <div class="audio-player" data-src="SE_Tanker_Zeric_1_Revel_ATT_1.mp3">
+            <div class="play-btn"><div class="play-icon"></div><div class="pause-icon"><div class="pause-bar"></div><div class="pause-bar"></div></div></div>
+            <div class="player-track"><div class="track-bar"><div class="track-fill"></div></div><div class="player-time">0:00 / 0:00</div></div>
+          </div>
+        </div>
+        <div class="sample-card">
+          <div class="sample-header"><span class="sample-name">Zeric 공격음</span><span class="sample-lv lv4">Lv. 4</span></div>
+          <p class="sample-desc">저음 레이어 최대치. 대지를 울리는 타격감.</p>
+          <div class="audio-player" data-src="SE_Tanker_Zeric_4_Revel_ATT_1.mp3">
+            <div class="play-btn"><div class="play-icon"></div><div class="pause-icon"><div class="pause-bar"></div><div class="pause-bar"></div></div></div>
+            <div class="player-track"><div class="track-bar"><div class="track-fill"></div></div><div class="player-time">0:00 / 0:00</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="char-sample-group">
+      <div class="char-sample-title">Terraclass <span class="char-badge">Tanker · Shield</span></div>
+      <div class="char-image-wrap">
+        <img src="terraclass.png" alt="Terraclass" class="char-image">
+        <div class="char-image-label">Terraclass — 인게임 스프라이트</div>
+      </div>
+      <div class="sample-pair">
+        <div class="sample-card">
+          <div class="sample-header"><span class="sample-name">Terraclass 공격음</span><span class="sample-lv">Lv. 1</span></div>
+          <p class="sample-desc">방패 기반 공격. 견고한 금속 충돌음.</p>
+          <div class="audio-player" data-src="SE_Tanker_Terraclass_1_Revel_ATT_1.mp3">
+            <div class="play-btn"><div class="play-icon"></div><div class="pause-icon"><div class="pause-bar"></div><div class="pause-bar"></div></div></div>
+            <div class="player-track"><div class="track-bar"><div class="track-fill"></div></div><div class="player-time">0:00 / 0:00</div></div>
+          </div>
+        </div>
+        <div class="sample-card">
+          <div class="sample-header"><span class="sample-name">Terraclass 공격음</span><span class="sample-lv lv4">Lv. 4</span></div>
+          <p class="sample-desc">마법 어빌리티 추가. 방어와 주문의 혼합.</p>
+          <div class="audio-player" data-src="SE_Tanker_Terraclass_4_Revel_ATT_1.mp3">
+            <div class="play-btn"><div class="play-icon"></div><div class="pause-icon"><div class="pause-bar"></div><div class="pause-bar"></div></div></div>
+            <div class="player-track"><div class="track-bar"><div class="track-fill"></div></div><div class="player-time">0:00 / 0:00</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 BGM -->
+<div class="section-full" style="background:var(--bg2);">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="sec-header"><span class="sec-num">04</span><span class="sec-title">BGM</span></div>
+    <p style="font-size:0.88rem;color:var(--text-dim);margin-bottom:2rem;line-height:1.9;">Suno AI를 활용해 게임 상황별 긴박감을 사운드로 설계했습니다.<br>로비, 인게임, 보스전 각 국면의 분위기를 음악으로 표현했습니다.</p>
+    <div class="bgm-list">
+      <div class="bgm-card">
+        <div class="bgm-info"><div class="bgm-context">Lobby</div><div class="bgm-title">The First Deal</div><div class="bgm-desc">게임 시작 전 로비 분위기. 전략적 긴장감과 기대감.</div></div>
+        <div class="audio-player" data-src="BGM_Lobby_01_The_First_Deal.mp3">
+          <div class="play-btn"><div class="play-icon"></div><div class="pause-icon"><div class="pause-bar"></div><div class="pause-bar"></div></div></div>
+          <div class="player-track"><div class="track-bar"><div class="track-fill"></div></div><div class="player-time">0:00 / 0:00</div></div>
+        </div>
+      </div>
+      <div class="bgm-card">
+        <div class="bgm-info"><div class="bgm-context">In-Game</div><div class="bgm-title">Iron Pulse</div><div class="bgm-desc">전투 중 루프 BGM. 긴장감을 유지하면서도 집중력을 높이는 리듬.</div></div>
+        <div class="audio-player" data-src="BGM_InGame_02_Iron_Pulse.mp3">
+          <div class="play-btn"><div class="play-icon"></div><div class="pause-icon"><div class="pause-bar"></div><div class="pause-bar"></div></div></div>
+          <div class="player-track"><div class="track-bar"><div class="track-fill"></div></div><div class="player-time">0:00 / 0:00</div></div>
+        </div>
+      </div>
+      <div class="bgm-card">
+        <div class="bgm-info"><div class="bgm-context">Boss Battle</div><div class="bgm-title">Colossal Pumping</div><div class="bgm-desc">보스전 전용 BGM. 압도적인 적의 등장에 맞춰 웅장함을 극대화.</div></div>
+        <div class="audio-player" data-src="BGM_Boss_02_Colossal_Pumping.mp3">
+          <div class="play-btn"><div class="play-icon"></div><div class="pause-icon"><div class="pause-bar"></div><div class="pause-bar"></div></div></div>
+          <div class="player-track"><div class="track-bar"><div class="track-fill"></div></div><div class="player-time">0:00 / 0:00</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 SUMMARY -->
+<div class="section-full">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="sec-header"><span class="sec-num">05</span><span class="sec-title">Summary</span></div>
+    <div class="summary-inner">
+      <div class="summary-text">
+        <p><strong>타격 쾌감</strong>과 <strong>레벨업에 따른 사운드 진화</strong>를 핵심으로 설계한 프로젝트입니다.</p>
+        <br>
+        <p>각 캐릭터의 비주얼 아이덴티티에서 사운드 방향을 추출하고, 무기 재질과 무게감의 변화를 통해 플레이어가 성장을 귀로 느낄 수 있도록 했습니다.</p>
+        <br>
+        <p><strong>사운드는 플레이 경험을 완성합니다.</strong></p>
+      </div>
+      <div class="summary-sign">
+        <span class="summary-sign-label">Sound Designer</span>
+        <span class="summary-sign-name">KIM DONGMIN</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>Sound Design Portfolio — <span style="color:var(--gold);">Kim Dongmin</span></span>
+  <a href="index.html" style="color:var(--text-dim);text-decoration:none;">← 메인으로</a>
+</footer>
+
+<script>
+  let currentAudio = null;
+  let currentBtn = null;
+
+  function formatTime(sec) {
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
+    return m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  document.querySelectorAll('.audio-player').forEach(player => {
+    const btn = player.querySelector('.play-btn');
+    const fill = player.querySelector('.track-fill');
+    const timeEl = player.querySelector('.player-time');
+    const trackBar = player.querySelector('.track-bar');
+    const src = player.dataset.src;
+    const audio = new Audio(src);
+
+    audio.addEventListener('loadedmetadata', () => {
+      timeEl.textContent = '0:00 / ' + formatTime(audio.duration);
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+      fill.style.width = pct + '%';
+      timeEl.textContent = formatTime(audio.currentTime) + ' / ' + formatTime(audio.duration);
+    });
+
+    audio.addEventListener('ended', () => {
+      btn.classList.remove('playing');
+      fill.style.width = '0%';
+      currentAudio = null;
+      currentBtn = null;
+    });
+
+    trackBar.addEventListener('click', e => {
+      if (!audio.duration) return;
+      const rect = trackBar.getBoundingClientRect();
+      const pct = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = pct * audio.duration;
+    });
+
+    btn.addEventListener('click', () => {
+      if (currentAudio && currentAudio !== audio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentBtn.classList.remove('playing');
+      }
+      if (audio.paused) {
+        audio.play();
+        btn.classList.add('playing');
+        currentAudio = audio;
+        currentBtn = btn;
+      } else {
+        audio.pause();
+        btn.classList.remove('playing');
+        currentAudio = null;
+        currentBtn = null;
+      }
+    });
+  });
+</script>
+</body>
+</html>
